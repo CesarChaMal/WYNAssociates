@@ -1,486 +1,943 @@
 <!DOCTYPE html>
 <html>
-<style>
-/* ------------------- */
-/* TEMPLATE        -- */
-/* ----------------- */
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900,300);
-
-body { 
-    height: 100%;
-    background-color: rgb(17, 17, 17); 
-    color: whitesmoke; 
-    font-size: 16px; 
-    font-family: 'Luminari';
-} 
-h1 { font-size: 32px; }
-h2 { font-size: 26px; }
-h3 { font-size: 18px; }
-p { margin: 0 0 15px; line-height: 24px; color: gainsboro; }
-a { color: dodgerblue; text-decoration: none; border-bottom: 1px dotted; }
-a:hover { color: rgb(254, 124, 101); }
-
-.container { 
-    max-width: 80%;
-    height: 800px;
-    margin: 0 auto; 
-    padding: 20px;
-}
-
-/* ------------------- */
-/* PEN STYLES      -- */
-/* ----------------- */
-
-/* MAKE IT CUTE ----- */
-.tabs {
-    position: absolute;
-    display: -webkit-box;
-    width: 82%;
-    min-height: 250%;
-    border-radius: 0 0 0 0;
-    overflow: visible;
-}
-
-.tabby-tab {
-    flex: grow;
-    width: auto;
-    overflow: left;
-}
-
-.tabby-tab label {
-    display: block;
-    box-sizing: border-box;
-    /* tab content must clear this */
-    /* height: 40px; */
-    width: auto;
-    padding: 10px;
-    text-align: center;
-    font-size: auto;
-    background: #398bff;
-    cursor: pointer;
-    transition: background 0.3s ease;
-
-}
-
-.tabby-tab label:hover {
-  background:  rgb(254, 124, 101);
-  width: auto;
-}
-
-.tabby-content {
-    position: absolute;
-    left: 0; 
-    bottom: 0;
-    right: 0;
-    /* clear the tab labels */
-    top: 40px; 
-    padding: 20px;
-    border-radius: 0 0 8px 8px;
-    background: rgb(17, 17, 17);
-    transition: 
-        opacity 0.5s ease,
-        transform 0.8s ease;
-    opacity: 0;
-    transform: scale(0.1);
-    transform-origin: top left;
-  
-}
-
-.tabby-content img {
-  float: left;
-  margin-right: 5px;
-  border-radius: 8px;
-}
-
-
-/* MAKE IT WORK ----- */
-.tabby-tab [type=radio] {
-    display: none;
-}
-
-[type=radio]:checked ~ label {
-  background: rgb(17, 17, 17);
-  z-index: 2;
-}
-
-[type=radio]:checked ~ label ~ .tabby-content {
-  z-index: 1;
-  
-  /* show/hide */
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* BREAKPOINTS ----- */
-@media screen and (max-width: 767px) {
-  .tabs { min-height: 400px;}
-}
-
-@media screen and (max-width: 480px) {
-  .tabs { min-height: 580px; }
-  .tabby-tab label { height: 60px; }
-  .tabby-content { top: 60px; }
-  .tabby-content img {
-    float: none;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-}
-
-/* This is for TradingView Widget */
-/* Style the tab content */
-.tradingview-widget-container {
-    padding: 6px 12px;
-    max-height: 1100px;
-}
-
-.tradingview-widget-container-single-chart  {
-    /* padding: 6px 12px;
-    height: 1000px; */
-    max-height: 1500px;
-}
-
-/* Design for a button */
-.block {
-    display: block;
-    width: auto;
-    border: none;
-    background-color: #a8caf9;
-    padding: 14px 28px;
-    font-size: 20px;
-    font-family: 'Luminari';
-    /* cursor: pointer; */
-    text-align: center;
-    border-radius: 20px 20px 20px 20px;
-}
-
-
-details {
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    padding: 0.5em 0.5em 0;
-    width: 150px;
-}
-
-summary {
-    font-weight: bold;
-    margin: -0.5em -0.5em 0;
-    padding: 0.5em;
-}
-
-details[open] {
-    padding: 0.5em;
-    width: 100%;
-}
-
-details[open] summary {
-    border-bottom: 1px solid #aaa;
-    margin-bottom: 0.5em;
-}
-
-
-</style>
 <head>
     <!-- Add url for website thumbnail -->
     <link rel="icon" href="https://wyn-associates.s3.amazonaws.com/public/yin-thumbnail.jpg">
     <!-- This is to fix emoji -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <style>
+        /* ------------------- */
+        /* TEMPLATE        -- */
+        /* ----------------- */
+
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900,300);
+
+        body { 
+            height: 100%;
+            background-color: rgb(17, 17, 17); 
+            color: whitesmoke; 
+            font-size: 16px; 
+            font-family: 'Luminari';
+        } 
+        h1 { font-size: 32px; }
+        h2 { font-size: 26px; }
+        h3 { font-size: 18px; }
+        p { margin: 0 0 12px; line-height: 24px; color: gainsboro; }
+        a { color: dodgerblue; text-decoration: none; border-bottom: 1px dotted; }
+        a:hover { color: rgb(254, 124, 101); }
+
+        .container { 
+            max-width: 90%;
+            height: 800px;
+            margin: 0 auto; 
+            padding: 20px;
+        }
+
+        /* ------------------- */
+        /* PEN STYLES      -- */
+        /* ----------------- */
+
+        /* MAKE IT CUTE ----- */
+        .tabs {
+            position: absolute;
+            display: -webkit-box;
+            width: 82%;
+            min-height: 250%;
+            border-radius: 0 0 0 0;
+            overflow: visible;
+        }
+
+        .tabby-tab {
+            flex: grow;
+            width: auto;
+            overflow: left;
+        }
+
+        .tabby-tab label {
+            display: block;
+            box-sizing: border-box;
+            /* tab content must clear this */
+            /* height: 40px; */
+            width: auto;
+            padding: 10px;
+            text-align: center;
+            font-size: auto;
+            background: #398bff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+        }
+
+        .tabby-tab label:hover {
+        background:  rgb(254, 124, 101);
+        width: auto;
+        }
+
+        .tabby-content {
+            position: absolute;
+            left: 0; 
+            bottom: 0;
+            right: 0;
+            /* clear the tab labels */
+            top: 40px; 
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            background: rgb(17, 17, 17);
+            transition: 
+                opacity 0.5s ease,
+                transform 0.8s ease;
+            opacity: 0;
+            transform: scale(0.1);
+            transform-origin: top left;
+        
+        }
+
+        .tabby-content img {
+        float: left;
+        margin-right: 5px;
+        border-radius: 8px;
+        }
+
+
+        /* MAKE IT WORK ----- */
+        .tabby-tab [type=radio] {
+            display: none;
+        }
+
+        [type=radio]:checked ~ label {
+        background: rgb(17, 17, 17);
+        z-index: 2;
+        }
+
+        [type=radio]:checked ~ label ~ .tabby-content {
+        z-index: 1;
+        
+        /* show/hide */
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* BREAKPOINTS ----- */
+        @media screen and (max-width: 767px) {
+        .tabs { min-height: 400px;}
+        }
+
+        @media screen and (max-width: 480px) {
+        .tabs { min-height: 580px; }
+        .tabby-tab label { height: 60px; }
+        .tabby-content { top: 60px; }
+        .tabby-content img {
+            float: none;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+        }
+
+        /* This is for TradingView Widget */
+        /* Style the tab content */
+        .tradingview-widget-container {
+            padding: 6px 12px;
+            max-height: 1200px;
+        }
+
+        .tradingview-widget-container-single-chart  {
+            /* padding: 6px 12px;
+            height: 1000px; */
+            max-height: 1600px;
+        }
+
+        /* Design for a button */
+        .block {
+            display: block;
+            width: auto;
+            border: none;
+            background-color: #a8caf9;
+            padding: 14px 28px;
+            font-size: 20px;
+            font-family: 'Luminari';
+            /* cursor: pointer; */
+            text-align: center;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+
+        details {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: 0.5em 0.5em 0;
+            width: 150px;
+        }
+
+        summary {
+            font-weight: bold;
+            margin: -0.5em -0.5em 0;
+            padding: 0.5em;
+        }
+
+        details[open] {
+            padding: 0.5em;
+            width: 100%;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: 0.5em;
+        }
+
+        /* Style the tab */
+        .tabforapps {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tabforapps button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+        /* Change background color of buttons on hover */
+        .tabforapps button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tabforapps button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        /* Style for div in two columns*/
+        .row_portfolio {
+            display: flex; /* This enables Flexbox, aligning children in a row */
+            height: 1000px;
+        }
+
+        .row_heatmap {
+            display: flex; /* This enables Flexbox, aligning children in a row */
+            height: 1000px;
+        }
+        
+        .column {
+            flex: 1; /* This causes the columns to equally share the horizontal space */
+            padding: 10px; /* Optional: Adds some space inside the columns */
+            border: 1px solid #ccc; /* Optional: Adds a border around each column */
+            margin: 2px; /* Optional: Adds some space between the columns */
+        }
+        /* Style the copilot button */
+        .widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .widget-btn {
+            background-color: #0059ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .widget-btn:hover {
+            background-color: #0056b3;
+        }
+        .widget-content {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 70%;
+            height: 80%;
+            background-color: #2e2e3e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        .widget-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .close-widget {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
+
 <body>
+    <script>
+        function openDetails(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+
+        function toggleWidget() {
+            const widgetContent = document.getElementById('widgetContent');
+            if (widgetContent.style.display === 'none' || widgetContent.style.display === '') {
+                widgetContent.style.display = 'block';
+            } else {
+                widgetContent.style.display = 'none';
+            }
+        }
+
+        // Initialize the list of symbols
+        let symbols = [
+            ["Apple", "AAPL|1D"],
+            ["Google", "GOOGL|1D"],
+            ["Microsoft", "MSFT|1D"],
+            ["Netflix", "NFLX|1D"],
+            ["Tesla", "TSLA|1D"],
+            ["Meta", "META|1D"],
+            ["Nvidia", "NVDA|1D"],
+            ["Taiwan Semiconductor", "TSM|1D"],
+            ["Disney", "DIS|1D"],
+            ["Visa", "V|1D"],
+            ["AMD", "AMD|1D"],
+            ["Berkshire Hathaway", "BRK.B|1D"],
+            ["Archer Aviation", "ACHR|1D"],
+            ["Vertex", "VERX|1D"],
+            ["Joby Aviation", "JOBY|1D"],
+            ["IonQ", "IONQ|1D"],
+            ["D-Wave Quantum", "QBTS|1D"],
+            ["Shopify", "SHOP|1D"],
+            ["Micron Technology", "MU|1D"]
+        ];
+
+
+        // Function to render a TradingView widget for a given container ID and interval
+        function renderTradingViewWidget(containerId, interval) {
+            const widgetContainer = document.getElementById(containerId);
+            widgetContainer.innerHTML = ''; // Clear the existing widget
+
+            // Create a new script element for the TradingView widget
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
+            script.async = true;
+
+            // Update each symbol with the specific interval
+            const updatedSymbols = symbols.map(([name, ticker]) => {
+                const baseTicker = ticker.split('|')[0];
+                return [name, `${baseTicker}|${interval}`];
+            });
+
+            script.textContent = JSON.stringify({
+                "symbols": updatedSymbols,
+                "chartOnly": false,
+                "width": "95%",
+                "height": 450,
+                "locale": "en",
+                "colorTheme": "dark",
+                "autosize": false,
+                "showVolume": true,
+                "showMA": true,
+                "hideDateRanges": false,
+                "hideMarketStatus": false,
+                "hideSymbolLogo": false,
+                "scalePosition": "right",
+                "scaleMode": "Normal",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+                "fontSize": "12",
+                "noTimeScale": false,
+                "valuesTracking": "1",
+                "changeMode": "price-and-percent",
+                "chartType": "candlesticks",
+                "maLineColor": "#2962FF",
+                "maLineWidth": 1,
+                "maLength": 50,
+                "lineType": 0,
+                "dateRanges": [
+                    "1d|1",
+                    "1m|30",
+                    "3m|60",
+                    "12m|1D",
+                    "60m|1W",
+                    "all|1M"
+                ],
+                "upColor": "#22ab94",
+                "downColor": "#f7525f",
+                "borderUpColor": "#22ab94",
+                "borderDownColor": "#f7525f",
+                "wickUpColor": "#22ab94",
+                "wickDownColor": "#f7525f"
+            });
+
+            // Append the new script to the widget container
+            widgetContainer.appendChild(script);
+        }
+
+        // Function to render all widgets with different time intervals
+        function renderAllWidgets() {
+            renderTradingViewWidget('tradingview-widget-1', '1D');  // Daily
+            renderTradingViewWidget('tradingview-widget-2', '1Y');  // Yearly
+            renderTradingViewWidget('tradingview-widget-3', '1M');  // Monthly
+            renderTradingViewWidget('tradingview-widget-4', '60M'); // 60 Minutes
+        }
+
+        // Function to add a new ticker to the symbols list
+        function addTicker() {
+            const tickerInput = document.getElementById('ticker-input').value.trim().toUpperCase();
+            if (!tickerInput) return;
+
+            // Prepend the new ticker to the symbols list
+            symbols.unshift([tickerInput, `${tickerInput}|1D`]);
+
+            // Re-render all TradingView widgets with the updated symbols list
+            renderAllWidgets();
+        }
+
+        // Initial render of all TradingView widgets
+        renderAllWidgets();
+    </script>
+
     <div class="container">
         <!-- Content -->
         <h2>💼 Yiqiao Yin</h2>
-        <p>This is <b>Yiqiao Yin</b>, and welcome to my personal site.</p>
-        <h4>Personal Background:</h4>
-        <p>Most recently, I was a Senior Data Scientist / Machine Learning Engineer at an <a href="https://en.wikipedia.org/wiki/S%26P_500">S&P 500</a> company <a href="https://www.labcorp.com/">LabCorp</a>, developing AI-driven solutions in drug diagnostics, drug development, operations management, and financial decisions for our global leaders in life sciences (see Labcorp SEC filings <a href="https://www.sec.gov/edgar/browse/?CIK=920148&owner=exclude">here</a>). Prior, I have held professional positions such as enterprise-level Data Scientist at <a href="https://www.bayer.com/en/agriculture">Bayer</a> (a <a href="https://en.wikipedia.org/wiki/EURO_STOXX_50">EURO STOXX 50</a> company), Quantitative Researcher at <a href="https://www.aqr.com/">AQR</a> (a global hedge fund pioneering in alternative quantitative strategies to portfolio management and <a href="https://www.blackrock.com/us/individual/investment-ideas/what-is-factor-investing">factor-based trading</a>), and Equity Trader at <a href="https://t3trading.com/">T3 Trading</a> on Wall Street (where I was briefly licensed <a href="https://brokercheck.finra.org/individual/summary/6338834">Series 56</a> by <a href="https://www.finra.org/">FINRA</a>). I supervise a small fund specializing in algorithmic trading (since 2011, performance is <a href="https://yinscapital.com/letters/">here</a>) in equity market, cryptocurrencies, and real estate investment. I also run my own monetarized <a href="https://youtube.com/YiqiaoYin/">YouTube Channel</a>. Please feel free to add me on <a href="https://www.linkedin.com/in/yiqiaoyin/">LinkedIn</a>.</p>
-        <p>I am an Executive MBA candidate at the <a href="https://www.chicagobooth.edu/">Booth School of Business</a>, <a href="https://www.uchicago.edu/">University of Chicago</a> from 2023-2025. I was a PhD student in <a href="http://stat.columbia.edu/">Statistics</a> at <a href="https://www.columbia.edu/">Columbia University</a> from September of 2020 to December of 2021. I had a B.A. in <a href="https://www.sas.rochester.edu/mth/">Mathematics</a>, and an M.S. in <a href="https://simon.rochester.edu/programs/full-time-ms-in-finance">Finance</a> from <a href="https://www.rochester.edu/">University of Rochester</a>. I have a wide range of research interests in representation learning: <a href="https://en.wikipedia.org/wiki/Feature_learning">Feature Learning</a>, <a href="https://en.wikipedia.org/wiki/Deep_learning">Deep Learning</a>, <a href="https://en.wikipedia.org/wiki/Computer_vision">Computer Vision (CV)</a>, and <a href="https://en.wikipedia.org/wiki/Natural_language_processing">Natural Language Processing (NLP)</a>. In addition, I have also have some prior research experience in <a href="https://en.wikipedia.org/wiki/Financial_economics">Financial Eonomics</a> and <a href="https://en.wikipedia.org/wiki/Asset_pricing">Asset Pricing</a>.</p>
-        <h4>Passion Project:</h4>
-        <p>At leisure, I run <a href="https://wyn-associates.com/">W.Y.N. Associates, LLC</a>, a registered legal entity in the state of New York, to pilot and drive for-profit personal passion projects.</p>
-        <button type="button" class="block"><a href="https://calendly.com/eagle0504/1-1-with-yin">Contact Me</a></button>
-        <p></p>
-        <button type="button" class="block"><a href="https://wyn-education.streamlit.app/">Education Platform</a></button>
+        <h2><b>Portfolio Overview</b></h2>
+
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+            "symbols": [
+            {
+                "proName": "FOREXCOM:SPXUSD",
+                "title": "S&P 500 Index"
+            },
+            {
+                "proName": "FOREXCOM:NSXUSD",
+                "title": "US 100 Cash CFD"
+            },
+            {
+                "proName": "FX_IDC:EURUSD",
+                "title": "EUR to USD"
+            },
+            {
+                "proName": "BITSTAMP:BTCUSD",
+                "title": "Bitcoin"
+            },
+            {
+                "description": " Microsoft",
+                "proName": "MSFT"
+            },
+            {
+                "description": "Apple Inc",
+                "proName": "AAPL"
+            },
+            {
+                "description": "NVIDIA Corp",
+                "proName": "NASDAQ:NVDA"
+            },
+            {
+                "description": "Amazon.com INc.",
+                "proName": "AMZN"
+            },
+            {
+                "description": "Alphabet Inc",
+                "proName": "NASDAQ:GOOGL"
+            },
+            {
+                "description": "Meta Platforms Inc",
+                "proName": "META"
+            },
+            {
+                "description": "Berkshire Hathaway Inc.",
+                "proName": "BRK.B"
+            },
+            {
+                "description": "Visa Inc",
+                "proName": "V"
+            },
+            {
+                "description": "Oracle Corp",
+                "proName": "ORCL"
+            },
+            {
+                "description": "Salesforce Inc",
+                "proName": "CRM"
+            },
+            {
+                "description": "Advanced Micro Devices INc.",
+                "proName": "AMD"
+            },
+            {
+                "description": "Netflix Inc.",
+                "proName": "NFLX"
+            },
+            {
+                "description": "Vertex Inc.",
+                "proName": "VERX"
+            },
+            {
+                "description": "Shopify Inc.",
+                "proName": "SHOP"
+            },
+            {
+                "description": "Micron Technology Inc.",
+                "proName": "MU"
+            }
+            ],
+            "showSymbolLogo": true,
+            "isTransparent": true,
+            "displayMode": "compact",
+            "colorTheme": "dark",
+            "locale": "en"
+        }
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+
+        <!-- <p></p>
+        <quote>Be aware of the market! Use the following expand/collapse button to see the charts of the stocks on your watchlist. </quote>
+        <p></p> -->
+
+        <!-- <div class="input-container">
+            <h3>To see the expanded charts:</h3>
+            <label for="ticker-input">👉Please enter Ticker Symbol:</label>
+            <input type="text" id="ticker-input" placeholder="Enter ticker (e.g., AAPL)">
+            <button onclick="addTicker()">Add Ticker</button>
+        </div> -->
+        <!-- <p></p> -->
+        
+        <!--
+            <details>
+                <summary>Expand/Collapse</summary>
+                <div>
+                    <div class="row_portfolio">
+                        <div class="column">
+                            <div class="tradingview-widget-container">
+                                <div class="tradingview-widget-container__widget" id="tradingview-widget-1"></div>
+                            </div>
+                            <div class="tradingview-widget-container">
+                                <div class="tradingview-widget-container__widget" id="tradingview-widget-2"></div>
+                            </div>
+                        </div>
+        
+                        <div class="column">
+                            <div class="tradingview-widget-container">
+                                <div class="tradingview-widget-container__widget" id="tradingview-widget-3"></div>
+                            </div>
+                            <div class="tradingview-widget-container">
+                                <div class="tradingview-widget-container__widget" id="tradingview-widget-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        -->
+    
 
         <p></p>
-        <details>
-            <summary>Gemini Test 🚀</summary>
-            <p>
-                <iframe
-                    src="https://gemini-test.streamlit.app/?embed=true"
-                    title="iframe Example 1"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
+        <p>This is <b>Yiqiao Yin</b>, and welcome to my personal site.</p>
+        <!-- <h3>Personal Story:</h3>
+        <quote>With over six years dedicated to the AI/ML domain, my journey is deeply rooted in a robust technical foundation, further enriched by my early training as a statistician. My professional path commenced at Columbia University, where I had the privilege of collaborating with esteemed post-docs and senior faculty members in an AI research lab. This role not only allowed me to contribute to the development and publication of innovative models and algorithms but also provided me with invaluable experience that I deeply cherish.
+            My academic pursuits led me to enroll in the PhD program at Columbia University, where I earned my master's degree. However, driven by a strong desire to apply theoretical knowledge to practical challenges, I transitioned from academia to the industry. This shift saw me embracing roles that progressively deepened my engagement with data science—starting as a Data Scientist at Bayer, evolving into a Senior Machine Learning Engineer at Labcorp.            
+            In these roles, my responsibilities encompassed overseeing the entire lifecycle of machine learning projects. This included everything from constructing data ingestion ETL pipelines, developing models, to containerizing these models for production deployment using Docker, and facilitating their release through Jenkins to enable CI/CD. As a pivotal member of the MLOps team, my role extended beyond model development; I was instrumental in architecting solutions and ensuring their seamless transition to production.
+            At this juncture, I find myself contemplating the next steps in my career. Despite the satisfaction derived from deploying models into production, the limited visibility into the broader business implications and user experience at my previous positions left me yearning for a more holistic understanding of how my work impacts organizations. This curiosity, coupled with a desire to amplify my contributions, has led me to pursue an MBA. My goal is to broaden my horizon, exploring new avenues where I can leverage my technical expertise for greater organizational impact.</quote> -->
+        <h3>Personal Background:</h3>
+        <p>
+            I have been in the AI/ML space since 2015 and have been in data science since 2014,
+            leading all forms of AI-backed solutions including but not limited to Computer Vision,
+            Natural Language Models (NLP), and most recently Large Language Models (LLMs) and Generative AI.
+            I am currently a Principal AI Engineer at <a href="https://www.fico.com/">FICO</a>,
+            a 🌍 global data analytics company providing credit scoring solutions for financial institutions,
+            consumers, and businesses worldwide.📊🔢
+            Previously, I was a Tech Lead at <a href="https://www.vertexinc.com/">Vertex Inc</a>,
+            a global leading provider of tax technologies 📊💻. I have also been a Senior ML Engineer at
+            an <a href="https://en.wikipedia.org/wiki/S%26P_500">S&P 500</a> company,
+            <a href="https://www.labcorp.com/">LabCorp</a>, developing AI-driven solutions 🧠💻 in drug diagnostics,
+            drug development, operations management, and financial decisions for our global leaders in life
+            sciences 🌍🔬 (see Labcorp SEC filings <a href="https://www.sec.gov/edgar/browse/?CIK=920148&owner=exclude">here</a>).
+            I have also held positions such as enterprise-level Data Scientist at
+            <a href="https://www.bayer.com/en/agriculture">Bayer</a> (a <a href="https://en.wikipedia.org/wiki/EURO_STOXX_50">EURO STOXX 50</a> company),
+            Quantitative Researcher (apprenticeship) at <a href="https://www.aqr.com/">AQR</a> (a global hedge
+            fund pioneering in alternative quantitative strategies to portfolio management
+            and <a href="https://www.blackrock.com/us/individual/investment-ideas/what-is-factor-investing">factor-based trading</a>),
+            and Equity Trader at <a href="https://t3trading.com/">T3 Trading</a> on Wall Street (where I was briefly
+            licensed <a href="https://brokercheck.finra.org/individual/summary/6338834">Series 56</a> by <a href="https://www.finra.org/">FINRA</a>).
+            I supervise a small fund specializing in algorithmic trading (since 2011, performance is
+            I also run my own monetized <a href="https://youtube.com/YiqiaoYin/">YouTube Channel</a>.
+            Feel free to add me on <a href="https://www.linkedin.com/in/yiqiaoyin/">LinkedIn</a>. 🚀📈
+        </p>
+        <p>Though I started in Finance, my AI career started from academic environment. 
+            <!-- I am an Executive MBA candidate at the <a href="https://www.chicagobooth.edu/">Booth School of Business</a>, <a href="https://www.uchicago.edu/">University of Chicago</a> from 2023-2025 📚🎓. -->
+            I was a PhD student in <a href="http://stat.columbia.edu/">Statistics</a> at <a href="https://www.columbia.edu/">Columbia University</a> from September of 2020 to December of 2021 📈🎓. I earned a B.A. in <a href="https://www.sas.rochester.edu/mth/">Mathematics</a>, and an M.S. in <a href="https://simon.rochester.edu/programs/full-time-ms-in-finance">Finance</a> from <a href="https://www.rochester.edu/">University of Rochester</a> 💼📊. My research interests are wide-ranging in representation learning, including <a href="https://en.wikipedia.org/wiki/Feature_learning">Feature Learning</a>, <a href="https://en.wikipedia.org/wiki/Deep_learning">Deep Learning</a>, <a href="https://en.wikipedia.org/wiki/Computer_vision">Computer Vision (CV)</a>, and <a href="https://en.wikipedia.org/wiki/Natural_language_processing">Natural Language Processing (NLP)</a> 🤖👀. Additionally, I have some prior research experience in <a href="https://en.wikipedia.org/wiki/Financial_economics">Financial Economics</a> and <a href="https://en.wikipedia.org/wiki/Asset_pricing">Asset Pricing</a> 💹📉.</p>
+        <h3>Passion Project:</h3>
+        <p>At leisure, I run <a href="https://wyn-associates.com/">W.Y.N. Associates, LLC</a>, a registered legal entity in the state of New York, to pilot and drive for-profit personal passion projects.</p>
+        <!-- <button type="button" class="block"><a href="https://calendly.com/eagle0504/1-1-with-yin">Contact Me 🤙</a></button> -->
         <p></p>
+        <!-- <button type="button" class="block"><a href="https://wyn-education.streamlit.app/">Education Platform 🧑‍🎓🏫</a></button> -->
+
+        <h3>Deployed Apps:</h3>
+        <p><b>Since diving headfirst into the world of AI/ML back in 2016, I've been cooking up some cool apps to showcase my love for everything AI, ML, NLP, and GenAI! 🚀🤖 If you're keen to give them a whirl, simply hit that dropdown button to expand the app of your choice. Let's explore the future together! 🌟👩‍💻</b></p>
+        <p><i>If any of the apps is not showing up, you can always find the source <a href="https://huggingface.co/eagle0504">here</a>.</i></p>
+        <div class="tabforapps">
+            <button class="tablinks" onclick="openDetails(event, 'Gemini1')">IDP Demo 💻</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini7')">DataViz ⭐</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini15')">Llama Clone 🦙</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini16')">Duel Agents 🦙🦙</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini4')">Quantized RAG 🤖</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini9')">Tech Trader 💲</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini12')">Stock Forecast💲</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini10')">Momentum Strategy Screener 🧐</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini5')">WYN Advisor 💼</button>
+            <button class="tablinks" onclick="openDetails(event, 'Gemini17')">Claude Sonnet 🧐</button>
+        </div>
+
+        <!-- Event details for Apps above -->
+        <div>
+            <div id="Gemini1" class="tabcontent">
+            <details>
+                <summary>Expand/Collapse</summary>
+                <p>
+                    <!-- <iframe
+                        src="https://intelligent-document-processing.streamlit.app/?embed=true"
+                        title="iframe Example 1"
+                        width="100%"
+                        height="850px">
+                    </iframe> -->
+                    <iframe
+                        src="https://eagle0504-idp-demo.hf.space"
+                        frameborder="0"
+                        width="100%"
+                        height="950px"
+                    ></iframe>
+                </p>
+            </details>
+            </div>
+    
+            <div id="Gemini4" class="tabcontent">
+            <details>
+                <summary>Expand/Collapse</summary>
+                <p>
+                    <iframe
+                        src="https://eagle0504-document-search-q-series.hf.space"
+                        title="iframe Example 1"
+                        width="100%"
+                        height="950px">
+                    </iframe>
+                </p>
+            </details>
+            </div>
+    
+            <div id="Gemini5" class="tabcontent">
+            <details>
+                <summary>Expand/Collapse</summary>
+                <p>
+                    <iframe
+                        src="https://eagle0504-mpt-demo.hf.space"
+                        title="iframe Example 1"
+                        width="100%"
+                        height="950px">
+                    </iframe>
+                </p>
+            </details>
+            </div>
+      
+            <div id="Gemini7" class="tabcontent">
+            <details>
+                <summary>Expand/Collapse</summary>
+                <p>
+                    <iframe
+                        src="https://eagle0504-document-view.hf.space"
+                        title="iframe Example 1"
+                        width="100%"
+                        height="950px">
+                    </iframe>
+                </p>
+            </details>
+            </div>
+        
+            <div id="Gemini9" class="tabcontent">
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <p>
+                        <iframe
+                            src="https://eagle0504-technical-trader.hf.space"
+                            title="iframe Example 1"
+                            width="100%"
+                            height="950px">
+                        </iframe>
+                    </p>
+                </details>
+            </div>
+
+            <div id="Gemini10" class="tabcontent">
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <p>
+                        <iframe
+                            src="https://eagle0504-momentum-strategy-screener.hf.space"
+                            title="iframe Example 1"
+                            width="100%"
+                            height="950px">
+                        </iframe>
+                    </p>
+                </details>
+            </div>
+
+            <div id="Gemini12" class="tabcontent">
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <p>
+                        <iframe
+                            src="https://eagle0504-stock-forecast.hf.space"
+                            title="iframe Example 1"
+                            width="100%"
+                            height="950px">
+                        </iframe>
+                    </p>
+                </details>
+            </div>
+
+            <div id="Gemini15" class="tabcontent">
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <p>
+                        <iframe
+                            src="https://eagle0504-meta-llama.hf.space"
+                            title="iframe Example 1"
+                            width="100%"
+                            height="950px">
+                        </iframe>
+                    </p>
+                </details>
+            </div>
+
+            <div id="Gemini16" class="tabcontent">
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <p>
+                        <iframe
+                            src="https://eagle0504-duel-agent-simulation.hf.space"
+                            title="iframe Example 1"
+                            width="100%"
+                            height="950px">
+                        </iframe>
+                    </p>
+                </details>
+            </div>
+
+            <div id="Gemini17" class="tabcontent">
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <p>
+                        <iframe
+                            src="https://eagle0504-claude-sonnet.hf.space"
+                            title="iframe Example 1"
+                            width="100%"
+                            height="950px">
+                        </iframe>
+                    </p>
+                </details>
+            </div>
+
+        </div>
+
+
         <p></p>
-        <details>
-            <summary>WYN Chat 🤖</summary>
-            <p>
-                <iframe
-                    src="https://wyn-chat.streamlit.app/?embed=true"
-                    title="iframe Example 1"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>WYN Search 🧐</summary>
-            <p>
-                <iframe
-                    src="https://wyn-search.streamlit.app/?embed=true"
-                    title="iframe Example 1"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <details>
-            <summary>WYN Chatbot 🤖</summary>
-            <p>
-                <iframe
-                    src="https://wyn-chatbot-io.streamlit.app/?embed=true"
-                    title="Chatbot"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>WYN Advisor 💼</summary>
-            <p>
-                <iframe
-                    src="https://wyn-advisor.streamlit.app/?embed=true"
-                    title="Advisor"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>WYN Query 🧐</summary>
-            <p>
-                <iframe
-                    src="https://yy-docquery.streamlit.app/?embed=true"
-                    title="Query"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>WYN DataViz ⭐</summary>
-            <p>
-                <iframe
-                    src="https://wyn-datasearch.streamlit.app/?embed=true"
-                    title="DataViz"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>WYN Vision 👓</summary>
-            <p>
-                <iframe
-                    src="https://wyn-vision.streamlit.app/?embed=true"
-                    title="Vision"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>LC Query 👓🧐</summary>
-            <p>
-                <iframe
-                    src="https://wyn-langchain-docquery.streamlit.app/?embed=true"
-                    title="LangchainQuery"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
-        <p></p>
-        <details>
-            <summary>Llama 🦙💬</summary>
-            <p>
-                <iframe
-                    src="https://wyn-llama.streamlit.app/?embed=true"
-                    title="Llama"
-                    width="100%"
-                    height="850px">
-                </iframe>
-            </p>
-        </details>
-        <p></p>
+        <!-- <p></p>
         <b>Copyright © 2010-2024 Present Yiqiao Yin</b>
-        <p></p>
+        <p></p> -->
+
+
+        <h3>Detailed Pages:</h3>
         <b>Feel free to click on any of the following buttons and view the content.</b>
         <p></p>
-
-        
 
         <div class="tabs">
           <div class="tabby-tab">
             <input type="radio" id="tab-1" name="tabby-tabs">
             <label for="tab-1"><b>Charts</b></label>
             <div class="tabby-content">
-                <h2><b>Ticker Billboards</b></h2>
-                <!-- TradingView Widget BEGIN -->
 
+                <!-- TradingView Widget END -->
+                <h2><b>Charts</b></h2>
+                <p>A quick preview of stock charts using TradingView widget. Technical indicators are selected by experience.</p>
+
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                    <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                    {
+                    "autosize": true,
+                    "symbol": "NASDAQ:TSLA",
+                    "interval": "D",
+                    "timezone": "America/New_York",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "allow_symbol_change": true,
+                    "details": true,
+                    "calendar": false,
+                    "studies": [
+                    "STD;Linear_Regression",
+                    "STD;EMA",
+                    "STD;SMA",
+                    "STD;WMA",
+                    "STD;Stochastic_RSI"
+                    ],
+                    "support_host": "https://www.tradingview.com"
+                }
+                    </script>
+                </div>
+                <!-- TradingView Widget END -->
+
+                <h2><b>Heatmaps</b></h2>
+                <p>The heatmaps contain large volume of data and may not be present during trading hours.</p>
+                <details>
+                    <summary>Expand/Collapse</summary>
+                    <div>
+                        <div class="row_heatmap">
+                            <div class="column">
+
+                                <h2><b>Stock Heatmap</b></h2>
+                                <!-- TradingView Widget BEGIN -->
+                                <div class="tradingview-widget-container">
+                                    <div class="tradingview-widget-container__widget"></div>
+                                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                                    {
+                                    "exchanges": [],
+                                    "dataSource": "SPX500",
+                                    "grouping": "sector",
+                                    "blockSize": "market_cap_basic",
+                                    "blockColor": "change",
+                                    "locale": "en",
+                                    "symbolUrl": "",
+                                    "colorTheme": "dark",
+                                    "hasTopBar": true,
+                                    "isDataSetEnabled": true,
+                                    "isZoomEnabled": true,
+                                    "hasSymbolTooltip": true,
+                                    "width": "95%",
+                                    "height": "90%"
+                                }
+                                    </script>
+                                </div>
+                                <!-- TradingView Widget END -->
+
+                            </div>
+                            <div class="column">
+
+                                <h2><b>Crypto Coins Heatmap</b></h2>
+                                <!-- TradingView Widget BEGIN -->
+                                <div class="tradingview-widget-container">
+                                    <div class="tradingview-widget-container__widget"></div>
+                                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+                                    {
+                                    "dataSource": "Crypto",
+                                    "blockSize": "market_cap_calc",
+                                    "blockColor": "change",
+                                    "locale": "en",
+                                    "symbolUrl": "",
+                                    "colorTheme": "dark",
+                                    "hasTopBar": true,
+                                    "isDataSetEnabled": true,
+                                    "isZoomEnabled": true,
+                                    "hasSymbolTooltip": true,
+                                    "width": "95%",
+                                    "height": "90%"
+                                }
+                                    </script>
+                                </div>
+                                <!-- TradingView Widget END -->
+
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <h2><b>Forex Cross Rates</b></h2>
                 <!-- TradingView Widget BEGIN -->
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
-                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets today</span></a> by TradingView</div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
                     {
-                    "symbols": [
-                    {
-                        "proName": "FOREXCOM:SPXUSD",
-                        "title": "S&P 500"
-                    },
-                    {
-                        "proName": "FOREXCOM:NSXUSD",
-                        "title": "US 100"
-                    },
-                    {
-                        "proName": "FX_IDC:EURUSD",
-                        "title": "EUR/USD"
-                    },
-                    {
-                        "proName": "BITSTAMP:BTCUSD",
-                        "title": "Bitcoin"
-                    },
-                    {
-                        "proName": "BITSTAMP:ETHUSD",
-                        "title": "Ethereum"
-                    },
-                    {
-                        "description": "Powershares",
-                        "proName": "NASDAQ:QQQ"
-                    },
-                    {
-                        "description": "Apple",
-                        "proName": "NASDAQ:AAPL"
-                    },
-                    {
-                        "description": "Taiwan Semiconductor",
-                        "proName": "NYSE:TSM"
-                    },
-                    {
-                        "description": "Nvidia",
-                        "proName": "NASDAQ:NVDA"
-                    },
-                    {
-                        "description": "Tesla",
-                        "proName": "TSLA"
-                    },
-                    {
-                        "description": "Google, Inc.",
-                        "proName": "GOOGL"
-                    }
+                    "width": "100%",
+                    "height": "100%",
+                    "currencies": [
+                    "EUR",
+                    "USD",
+                    "JPY",
+                    "GBP",
+                    "CHF",
+                    "AUD",
+                    "CAD",
+                    "NZD",
+                    "CNY",
+                    "TRY",
+                    "SEK",
+                    "NOK",
+                    "DKK",
+                    "ZAR",
+                    "HKD",
+                    "TWD"
                     ],
-                    "showSymbolLogo": true,
+                    "isTransparent": false,
                     "colorTheme": "dark",
-                    "isTransparent": true,
-                    "displayMode": "adaptive",
                     "locale": "en"
                 }
                     </script>
                 </div>
                 <!-- TradingView Widget END -->
-                <h2><b>Charts</b></h2>
-                <p>A quick preview of stock charts using TradingView widget. Technical indicators are selected by experience.</p>
-                <!-- TradingView Widget BEGIN -->
-                <div class="tradingview-widget-container-single-chart">
-                    <div id="technical-analysis-chart-demo"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                    <script type="text/javascript">
-                        var studies = [
-                            {
-                                id: "MASimple@tv-basicstudies",
-                                inputs: {
-                                    length: 200
-                                }
-                            },
-                            {
-                                id: "MASimple@tv-basicstudies",
-                                inputs: {
-                                    length: 100
-                                }
-                            },
-                            {
-                                id: "MASimple@tv-basicstudies",
-                                inputs: {
-                                    length: 50
-                                }
-                            },
-                            {
-                                id: "MASimple@tv-basicstudies",
-                                inputs: {
-                                    length: 9
-                                }
-                            },
-                            {
-                                id: "RSI@tv-basicstudies",
-                                inputs: {
-                                    length: 52
-                                }
-                            },
-                            {
-                                id: "RSI@tv-basicstudies",
-                                inputs: {
-                                    length: 26
-                                }
-                            }
-                            
-                        ];
 
-                        new TradingView.widget(
-                            {
-                                "container_id": "technical-analysis-chart-demo",
-                                "width": "120%",
-                                "height": "255%",
-                                "autosize": true,
-                                "symbol": "AAPL",
-                                "interval": "D",
-                                "timezone": "exchange",
-                                "theme": "dark",
-                                "style": "1",
-                                "toolbar_bg": "#f1f3f6",
-                                "withdateranges": true,
-                                "hide_side_toolbar": false,
-                                "allow_symbol_change": true,
-                                "details": true,
-                                "save_image": false,
-                                "studies": studies,
-                                "show_popup_button": true,
-                                "popup_width": "1000",
-                                "popup_height": "650",
-                                "locale": "en"
-                            }
-                        );
+                <h2><b>Top Stories</b></h2>
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                    {
+                    "feedMode": "market",
+                    "isTransparent": true,
+                    "displayMode": "regular",
+                    "width": "100%",
+                    "height": "100%",
+                    "colorTheme": "dark",
+                    "locale": "en",
+                    "market": "stock"
+                }
                     </script>
                 </div>
                 <!-- TradingView Widget END -->
-
             </div>
           </div>
 
@@ -489,46 +946,144 @@ details[open] summary {
             <label for="tab-2"><b>Watchlist</b></label>
             <div class="tabby-content">
                 <h2><b>Watchlist</b></h2>
-                <p>A pool of stocks pitched and held by Mr. Yiqiao Yin. No recommendations provided and is not for profit. This is for presentation only.</p>
+                <p>An overview of Mr. Market himself.</p>
                 <!-- TradingView Widget BEGIN -->
                 <div class="tradingview-widget-container">
-                    <div id="watchlist-chart-demo"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                    <script type="text/javascript">
-                    new TradingView.widget(
+                    <div class="tradingview-widget-container__widget"></div>
+                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+                    {
+                    "width": "100%",
+                    "height": "100%",
+                    "symbolsGroups": [
+                    {
+                        "name": "Indices",
+                        "originalName": "Indices",
+                        "symbols": [
                         {
-                            "container_id": "watchlist-chart-demo",
-                            "width": "100%",
-                            "height": "40%",
-                            "autosize": true,
-                            "symbol": "NASDAQ:AAPL",
-                            "interval": "D",
-                            "timezone": "exchange",
-                            "theme": "dark",
-                            "style": "1",
-                            "toolbar_bg": "#f1f3f6",
-                            "withdateranges": true,
-                            "allow_symbol_change": true,
-                            "save_image": false,
-                            "studies": studies,
-                            "watchlist": [
-                                "SPY", "DIA", "NDAQ", "QQQ",
-                                "AAPL", "FB", "TSLA", "AMZN", 
-                                "AMD", "NVDA", "IBM", "TSM", "META",
-                                "MSFT", "GOOGL", "AMZN", "DIS", "NFLX",
-                                "GD", "GLD", "ZM", "VMW", "AMC", "COUR", 
-                                "LH", "TMO", "IQV", "MRK", "MCK", "UNH",
-                                "BTCUSD"
-                            ],
-                            "show_popup_button": true,
-                            "popup_width": "1000",
-                            "popup_height": "650",
-                            "locale": "en" 
+                            "name": "FOREXCOM:SPXUSD",
+                            "displayName": "S&P 500 Index"
+                        },
+                        {
+                            "name": "FOREXCOM:NSXUSD",
+                            "displayName": "US 100 Cash CFD"
+                        },
+                        {
+                            "name": "FOREXCOM:DJI",
+                            "displayName": "Dow Jones Industrial Average Index"
+                        },
+                        {
+                            "name": "INDEX:NKY",
+                            "displayName": "Nikkei 225"
+                        },
+                        {
+                            "name": "INDEX:DEU40",
+                            "displayName": "DAX Index"
+                        },
+                        {
+                            "name": "FOREXCOM:UKXGBP",
+                            "displayName": "FTSE 100 Index"
                         }
-                    );
+                        ]
+                    },
+                    {
+                        "name": "Futures",
+                        "originalName": "Futures",
+                        "symbols": [
+                        {
+                            "name": "CME_MINI:ES1!",
+                            "displayName": "S&P 500"
+                        },
+                        {
+                            "name": "CME:6E1!",
+                            "displayName": "Euro"
+                        },
+                        {
+                            "name": "COMEX:GC1!",
+                            "displayName": "Gold"
+                        },
+                        {
+                            "name": "NYMEX:CL1!",
+                            "displayName": "WTI Crude Oil"
+                        },
+                        {
+                            "name": "NYMEX:NG1!",
+                            "displayName": "Gas"
+                        },
+                        {
+                            "name": "CBOT:ZC1!",
+                            "displayName": "Corn"
+                        }
+                        ]
+                    },
+                    {
+                        "name": "Bonds",
+                        "originalName": "Bonds",
+                        "symbols": [
+                        {
+                            "name": "CBOT:ZB1!",
+                            "displayName": "T-Bond"
+                        },
+                        {
+                            "name": "CBOT:UB1!",
+                            "displayName": "Ultra T-Bond"
+                        },
+                        {
+                            "name": "EUREX:FGBL1!",
+                            "displayName": "Euro Bund"
+                        },
+                        {
+                            "name": "EUREX:FBTP1!",
+                            "displayName": "Euro BTP"
+                        },
+                        {
+                            "name": "EUREX:FGBM1!",
+                            "displayName": "Euro BOBL"
+                        }
+                        ]
+                    },
+                    {
+                        "name": "Forex",
+                        "originalName": "Forex",
+                        "symbols": [
+                        {
+                            "name": "FX:EURUSD",
+                            "displayName": "EUR to USD"
+                        },
+                        {
+                            "name": "FX:GBPUSD",
+                            "displayName": "GBP to USD"
+                        },
+                        {
+                            "name": "FX:USDJPY",
+                            "displayName": "USD to JPY"
+                        },
+                        {
+                            "name": "FX:USDCHF",
+                            "displayName": "USD to CHF"
+                        },
+                        {
+                            "name": "FX:AUDUSD",
+                            "displayName": "AUD to USD"
+                        },
+                        {
+                            "name": "FX:USDCAD",
+                            "displayName": "USD to CAD"
+                        }
+                        ]
+                    }
+                    ],
+                    "showSymbolLogo": true,
+                    "isTransparent": false,
+                    "colorTheme": "dark",
+                    "locale": "en",
+                    "backgroundColor": "#131722"
+                }
                     </script>
                 </div>
                 <!-- TradingView Widget END -->
+
+                <h2><b>Factor-based Trading / Algorithmic Trading Screener</b></h2>
                 <p>When it comes to filtering stocks using Carhart's <a href="https://en.wikipedia.org/wiki/Carhart_four-factor_model">4-factor model</a> (see this <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1997.tb03808.x">paper</a>, an algorithmic trading strategy based on the famous <a href="https://en.wikipedia.org/wiki/Fama%E2%80%93French_three-factor_model">Fama-French 3-factor model</a>), investors can identify potential investment opportunities by examining four key factors that have been shown to explain a significant portion of the variation in stock returns. These factors include market risk, size, value, and momentum. The momentum factor, in simple terms, refers to the tendency of stocks that have recently performed well to continue performing well in the near future, and vice versa for stocks that have recently underperformed. Essentially, momentum is the measure of a stock's recent price trend, with strong upward trends indicating positive momentum and strong downward trends indicating negative momentum.</p>
                 <!-- TradingView Widget BEGIN -->
                 <div class="tradingview-widget-container">
@@ -536,8 +1091,8 @@ details[open] summary {
                     <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/screener/" rel="noopener" target="_blank"><span class="blue-text">Stock screener</span></a> by TradingView</div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
                     {
-                        "width": "99%",
-                        "height": "95%",
+                        "width": "100%",
+                        "height": "100%",
                         "defaultColumn": "overview",
                         "defaultScreen": "most_capitalized",
                         "showToolbar": true,
@@ -563,7 +1118,9 @@ details[open] summary {
                     <ul>
                         <li><h5>Papers</h5></li>
                         <ul>
-                            <li>2023-03 | Yash Bingi, <strong>Yiqiao Yin</strong> (2023), Using Machine Learning to Classify Human Fetal Health and Analyze Feature Importance (Mar., 2023), <em>BioMedInformatics</em>, 3(2): [<a href="https://www.mdpi.com/2673-7426/3/2/19">Print</a>]</li>
+                            <li>2024-04 | <strong>Yiqiao Yin</strong> (2024), Vision Augmentation Prediction Autoencoder with Attention Design (VAPAAD), <em>arXiv preprint arXiv:2404.10096</em>: [<a href="https://arxiv.org/abs/2404.10096">ArXiv</a>]</li>
+                            <li>2024-04 | Vivian Liu, <strong>Yiqiao Yin</strong> (2024), Green AI: Exploring Carbon Footprints, Mitigation Strategies, and Trade Offs in Large Language Model Training, <em>arXiv preprint arXiv:2404.01157</em>: [<a href="https://link.springer.com/article/10.1007/s44163-024-00149-w">Print</a>, <a href="https://arxiv.org/abs/2404.01157">ArXiv</a>]</li>
+                            <li>2024-03 | Keshav Rangan, <strong>Yiqiao Yin</strong> (2024), A Fine-tuning Enhanced RAG System with Quantized Influence Measure as AI Judge, <em>arXiv preprint arXiv:2402.17081</em>: [<a href="https://arxiv.org/abs/2402.17081">ArXiv</a>]</li>
                             <li>2023-02 | Xuan Di, <strong>Yiqiao Yin</strong>, Yongjie Fu, Zhaobin Mo, Shaw-Hwa Lo, Carolyn DiGuiseppi, David W. Eby, Linda Hill, Thelma J. Mielenz, David Strogatz, Minjae Kim, Guohua Li (2023), Detecting mild cognitive impairment and dementia in older adults using naturalistic driving data and interaction-based classification from influence score (Feb., 2023), <em>Artificial Intelligence in Medicine</em>, 102510, [<a href="https://www.sciencedirect.com/science/article/pii/S0933365723000246">Print</a>]</li>
                             <li>2023-01 | Jaiden Shraut, Leon Liu, Jonathan Gong, <strong>Yiqiao Yin</strong> (2023), A Multi-Output Network with U-net Enhanced Class Activation Map and Robust Classification Performance for Medical Imaging Analysis (Jan., 2023), <em>Discover Artificial Intelligence</em>, 3(1): [<a href="https://link.springer.com/article/10.1007/s44163-022-00045-1">Print</a>, <a href="https://www.scientia.global/yiqiao-yin-seeing-deep-into-the-lungs-with-deep-learning/">Media</a>]</li>
                             <li>2022-11 | Kieran Pichai, Benjamin Park, Aaron Bao, <strong>Yiqiao Yin</strong> (2022), Automated Segmentation and Classification of Aerial Forest Imagery, <em>Analytics</em>,&nbsp;<em>1</em>(2), 135-143: [<a href="https://www.mdpi.com/2813-2203/1/2/10">Print</a>, <a href="https://www.scientia.global/yiqiao-yin-tracking-deforestation-with-neural-networks/">media</a>]</li>
@@ -581,14 +1138,17 @@ details[open] summary {
                             <li>2022-10 | <strong>Yiqiao Yin</strong> (credit to Edna Williams) (2022), A Machine Learning based Enrollment Forecasting System (Oct, 2022), <em>OHDSI</em>: [<a href="https://www.ohdsi.org/2022showcase-97/">OHDSI</a>, <a href="https://www.ohdsi.org/wp-content/uploads/2022/10/OHDSI2022-Agenda.pdf">Oct. 14 Agenda</a>]</li>
                             <li>2022-02 | <strong>Yiqiao Yin</strong> (2022), XAI in Healthcare: A Novel XAI Approach Towards Radiology Image Classification: [<a href="https://aaai.org/Conferences/AAAI-22/ws22workshops/#ws37">AAAI 22' Workshops</a>, <a href="https://taih21.github.io/">W37 Home</a>, <a href="https://wyn-associates.s3.amazonaws.com/public/research/representation_learning/aaai_22__workshop_w37_poster.pdf">Poster</a>, <a href="https://wyn-associates.s3.amazonaws.com/public/research/representation_learning/aaai_22__workshop_w37_presentation.pdf">Presentation</a> | Venue details: <a href="https://aaai-2022.virtualchair.net/index.html">AAAI 22' Schedule Home</a>, <a href="https://aaai-2022.virtualchair.net/events_workshops.html">AAAI 22' Workshop Page</a> (My talk is in W37: Trustworthy AI in Healthcare) | Updated <a href="https://wyn-associates.s3.amazonaws.com/public/research/representation_learning/tech-discussion-2022-4-20.pdf">slides</a>]</li>
                         </ul>
-                        <li><h5>Awards</h5></li>
+                        <li><h5>Selected Awards/Paper/Work from My Students</h5></li>
                         <ul>
+                            <li>2023-12 | Kieran Pichai, <strong>Yiqiao Yin</strong> as mentor (2023), A Retrieval-Augmented Generation Based Large Language Model Benchmarked On a Novel Dataset, <em>Journal of Student Research</em>, 12(4): [<a href="https://www.jsr.org/hs/index.php/path/article/view/6213">Print</a>]</li>
                             <li>2023-12 | Yash Bingi, <strong>Yiqiao Yin</strong> as mentor (2023), Using Machine Learning to Classify Fetal Health and Analyze Feature Importance, <em>1st Place by US Agency for International Development in the Regeneron International Science and Engineering Competition and the 4th Place in the Massachusetts Science & Engineering Fair (MSEF)</em>: [<a href="https://www.sefmd.org/Awards/2023/Professional%20Awards%20by%20Student.pdf">Site</a>]</li>
                             <li>2023-05 | Jonathan Gong, <strong>Yiqiao Yin</strong> as mentor (2023), COVID-19 Chest X-ray Image Classification and Improved U-Net Segmentation, <em>Excellence Award - Silver at the Canada-Wide Science Fair (CWSF)</em>: [<a href="https://www.sciencefairs.ca/news/2023/cwsf-concludes-in-edmonton/">Site</a>]</li>
+                            <li>2023-03 | Aarav Monga, <strong>Yiqiao Yin</strong> as mentor (2023), A For-Profit Model of Microcredit, <em>Journal of Student Research</em>, 11(1): [<a href="https://www.jsr.org/hs/index.php/path/article/view/2378">Print</a>]</li>
                         </ul>
                         <li><h5>Books</h5></li>
                         <ul>
-                            <li>2023-12 | <strong>Yiqiao Yin</strong> (2023), AI Decoded: Making Sense of Deep Learning and Generative AI (Dec., 2023): [Book sale on <a href="https://www.amazon.com/dp/B0CNJDWYXW">Amazon</a>]</li>
+                            <li>2024-09 | <strong>Yiqiao Yin</strong> (2024), Notes on Agent-based Applications: Era of Agent-based Applications (Sept., 2024): [Book sale on <a href="https://www.amazon.com/dp/9999320023">Amazon</a>]</li>
+                            <li>2023-12 | <strong>Yiqiao Yin</strong> (2023), AI Decoded: Making Sense of Deep Learning and Generative AI (Dec., 2023): [Book sale on <a href="https://www.amazon.com/dp/B0CNJDWYXW">Amazon</a>, see slides <a href="https://wyn-associates.s3.amazonaws.com/public/research/education/AI_Decoded__Yin_2024.pdf">here</a>]</li>
                             <li>2023-06 | <strong>Yiqiao Yin</strong> (2023), Understand Asset Prices Using Empirical Studies (Jun., 2023): [Book sale on <a href="https://www.amazon.com/dp/9994988417">Amazon</a>]</li>
                             <li>2022-05 | <strong>Yiqiao Yin</strong> (2022), Towards Explainable Artificial Intelligence Using Interaction-based Representation Learning (May, 2022): [Book sale on <a href="https://www.amazon.com/dp/9994980157">Amazon</a>]</li>
                             <li>2022-04 | <strong>Yiqiao Yin</strong> (credit to Professor Shaw-hwa Lo) (2022), Fundamentals of Interaction-based Learning (Apr., 2022): [Book sale on <a href="https://www.amazon.com/dp/163648641X">Amazon</a>]</li>
@@ -626,7 +1186,7 @@ details[open] summary {
                     <ul>
                         <li><h4>Other useful resources:</h4>
                             <ul>
-                                <li><b>Google Scholar </b>💼<b>: </b> Click <a href="https://scholar.google.com/citations?user=IScAeLQAAAAJ&amp;hl=en">here</a></li>
+                                <li><b>Google Scholar </b>💼<b>: </b> Click <a href="https://scholar.google.com/citations?hl=en&user=Ju6m_O4AAAAJ">here</a></li>
                                 <li><b>Quick view of the market </b>📈<b>: </b>Click <a href="https://www.tradingview.com/chart/?symbol=SPY">here</a> for S&amp;P 500 futures.</li>
                                 <li><b>Flagship Product </b>🦾<b>: </b><a href="https://y-yin.shinyapps.io/YINS-Q-BRANCH/">Yin's Q Branch</a>, <a href="https://y-yin.shinyapps.io/CENTRAL-INTELLIGENCE-PLATFORM/">Central Intelligence Platform</a>, <a href="https://github.com/yiqiao-yin/YinsLibrary__">YinsLibrary (Sample)</a></li>
                                 <li><b>For more information about us </b>🧑🏻‍💻<span class="Apple-converted-space">&nbsp;</span><b>:&nbsp;<a href="http://www.yiqiaoyin.wordpress.com/letter">A Letter From Yiqiao Yin</a></b></li>
@@ -641,16 +1201,18 @@ details[open] summary {
                         </li>
                         <li><h4>Quick Links for Top Hedge Funds SEC 13F Filings: </h4>
                             <ul>
-                            <li><a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001040273&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Third Point LLC</a>, 
-                                <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001336528&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Pershing Square Capital Management, L.P.</a>,
-                                <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001079114&amp;owner=exclude&amp;count=40&amp;hidefilings=0">Greenlight Capital Inc</a>, 
-                                <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001079114&amp;owner=exclude&amp;count=40&amp;hidefilings=0">Greenlight Capital Inc</a>,
-                                <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001035674&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Paulson &amp; Co Inc</a>,
-                                <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001061165&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Lone Pine Capital LLC</a>,
-                                <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001350694&amp;type=13&amp;dateb=&amp;owner=exclude&amp;count=40">Bridgewater Associates, LP</a>,
-                                <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001067983&amp;type=13F-HR&amp;dateb=&amp;owner=exclude&amp;count=40">Berkshire Hathaway</a>,
-                                <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001167557&amp;type=13F-HR&amp;dateb=&amp;owner=exclude&amp;count=40">AQR Capital</a>,
-                                <a href="https://www.sec.gov/edgar/browse/?CIK=920148&amp;owner=exclude">Labcorp</a></li>
+                                <li>
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001040273&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Third Point LLC</a>, 
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001336528&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Pershing Square Capital Management, L.P.</a>,
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001079114&amp;owner=exclude&amp;count=40&amp;hidefilings=0">Greenlight Capital Inc</a>, 
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001079114&amp;owner=exclude&amp;count=40&amp;hidefilings=0">Greenlight Capital Inc</a>,
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001035674&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Paulson &amp; Co Inc</a>,
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001061165&amp;type=13F&amp;dateb=&amp;owner=exclude&amp;count=40">Lone Pine Capital LLC</a>,
+                                    <a href="http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001350694&amp;type=13&amp;dateb=&amp;owner=exclude&amp;count=40">Bridgewater Associates, LP</a>,
+                                    <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001067983&amp;type=13F-HR&amp;dateb=&amp;owner=exclude&amp;count=40">Berkshire Hathaway</a>,
+                                    <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001167557&amp;type=13F-HR&amp;dateb=&amp;owner=exclude&amp;count=40">AQR Capital</a>,
+                                    <a href="https://www.sec.gov/edgar/search/?r=el&fbclid=IwAR0Q3tuFoKapL50WRMd7q-BP83M3SMOfQBXzQkoZIN1C2JabU2KVXVYUD3w#/q=13F&page=1&ciks=0001697748&entityName=ARK%20Investment%20Management%20LLC%20(CIK%200001697748)&category=form-cat0&forms=-3,%20-4,%20-5">Ark Investment Management</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -691,6 +1253,15 @@ details[open] summary {
                 <h3>AI4ALL: General Machine Learning and Artificial Intelligence FREE Sources</h3>
                 <ul>
                     <li>The Fundamentals in Machine Learning | <a href="https://www.udemy.com/course/the-fundamentals-of-machine-learning/">Link</a> | This is an introduction course of machine learning: The Fundamentals of Machine Learning. The course will cover a wide range of topics to teach you step by step from handling a dataset to model delivery. The course assumes no prior knowledge of the students. However, some prior training in python programming and some basic calculus knowledge is definitely helpful for the course. The expectation is to provide you the same knowledge and training as that is provided in an intro Machine Learning or Artificial Intelligence course at a credited undergraduate university computer science program.</li>
+                    <li>Random Graphs and Complex Networks | <a href="https://www.win.tue.nl/~rhofstad/NotesRGCN.html">Link</a></li>
+                    <li>An introduction to Optimization on smooth manifolds | <a href="https://nicolasboumal.net/book/">Link</a></li>
+                    <li>Computer Age Statistical Inference: Algorithms, Evidence and Data Science | <a href="https://hastie.su.domains/CASI/">Link</a></li>
+                    <li>Statistical Learning with Sparsity: The Lasso and Generalizations | <a href="https://hastie.su.domains/StatLearnSparsity/">Link</a></li>
+                    <li>The Shallow and the Deep: A biased introduction to neural networks and old school machine learning | <a href="https://books.ugp.rug.nl/index.php/ugp/catalog/book/130">Link</a></li>
+                    <li>User-friendly Introduction to PAC-Bayes Bounds | <a href="https://www.nowpublishers.com/article/Details/MAL-100">Link</a></li>
+                    <li>Geometric Mechanics Part I: Dynamics and Symmetry | <a href="https://www.ma.imperial.ac.uk/~dholm/classnotes/HolmPart1-GM.pdf">Link</a></li>
+                    <li>Artificial Intelligence: Foundations of Computational Agents | <a href="https://artint.info/3e/html/ArtInt3e.html">Link</a></li>
+                    <li>List of curated books | <a href="https://franknielsen.github.io/Books/CuratedBookLists.html">Link</a></li>
                     <li>AI4ALL | Github: <a href="https://github.com/yiqiao-yin/WYNAssociates">💻</a></li>
                     <ul>
                         <li>Fundamentals in Neural Networks | <a href="https://www.udemy.com/course/fundamentals-in-neural-networks/">Link</a> | Deep learning (also known as deep structured learning) is part of a broader family of machine learning methods based on artificial neural networks with representation learning. Learning can be supervised, semi-supervised or unsupervised. Deep-learning architectures such as deep neural networks, deep belief networks, deep reinforcement learning, recurrent neural networks and convolutional neural networks have been applied to fields including computer vision, speech recognition, natural language processing, machine translation, bioinformatics, drug design, medical image analysis, material inspection and board game programs, where they have produced results comparable to and in some cases surpassing human expert performance. This course covers the following three sections: (1) Neural Networks, (2) Convolutional Neural Networks, and (3) Recurrent Neural Networks. </li>
@@ -707,58 +1278,203 @@ details[open] summary {
                         <li>More to come.</li>
                     </ul>
                 </ul>
-                <h3>Collected Notes</h3>
+                <h3>Software Engineer: MLOps | LLMOps | DevOps | Full Stack</h3>
                 <ul>
-                    <li><b>Economics</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/economics/macroeconomics-notes.pdf">Macroeconomics</a></li>
-                    </ul>
-                    <li><b>Probability Theory</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/probability_theory/intro_probability_theory.pdf">Introduction to Probability Theory</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/probability_theory/introduction-to-probability-and-statistics.pdf">Probability Theory and Statistics</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/probability_theory/probability-theory.pdf">Probability Theory</a></li>
-                    </ul>
-                    <li><b>Statistical Inference</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/intro-statistical-reasoning.pdf">Introduction to Statistical Reasoning</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/statistical-inference.pdf">Statistical Inference</a></li>
-                        <a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/linear-regression-model.pdf">Linear Regression Model</a>
-                    </ul>
-                    <li><b>Applied Statistical Science, Data Science, and Deep Learning</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/iscds.pdf">Intro to Scientific Computing and Data Science</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/statistical_machine_learning.pdf">Statistical Machine Learning</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/applied_statistics/deep-learning-notes.pdf">Deep Learning Notes</a></li>
-                    </ul>
-                    <li><b>Mathematics</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/mathematics/pde.pdf">Partial Differential Equation</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/mathematics/modern_analysis.pdf">Real Analysis</a></li>
-                    </ul>
-                    <li><b>Money Management</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/securities-exchange-act-of-1933.pdf">Securities Exchange Act (SEC), 1933</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/securities-exchange-act-of-1934.pdf">Securities Exchange Act (SEC), 1934</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/security-analysis-benjamin-graham-6th-edition.pdf">Security Analysis, 6E</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/pass-perfect-study-guide-series-56.pdf">Series 56 Guide</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/asset-pricing-j-cochrane.pdf">Asset Pricing</a></li>
-                    </ul>
-                    <li><b>Computer Science</b></li>
-                    <ul>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/principles_of_computer_science/principles+of+computer+science.pdf">Principles of Computer Science</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/programming+language+and+algorithms/programming+languages+and+algorithms.pdf">Programming Languages and Algorithms</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/management+of+computer+networks/management+of+computer+networks.pdf">Management of Computer Networks</a></li>
-                        <li><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/distributed+algorithms+and+parallel+computing/distributed-algorithms-and-parallel-computing.pdf">Distributed Algorithms and Parallel Computing</a></li>
-                    </ul>
+                    <li>MLOps Deck | <a href="https://wyn-associates.s3.amazonaws.com/public/research/engineer/MLOps_and_LLMOps_Deck.pdf">Link</a> | The slide deck walks through some basic points of becoming a good MLOps or LLMOps engineer.</li>
+                    <li>Software-as-a-Service (SAAS) Template | <a href="https://huggingface.co/spaces/eagle0504/saas-template">Link</a> | The repository is hosted on HuggingFace and it walks you through a front-end User Interface (UI) in Streamlit application and a user authentication plugin.</li>
+                    <li>SAAS Chatbot Template | <a href="https://huggingface.co/spaces/eagle0504/meta-llama3-full-stack">Link</a> | The repository walks through the main components of building a web-based application with a Llama3 chatbot. The app is upgraded with user authentication and supported with a private API key.</li>
                 </ul>
+                <h3>List of AI and ML Textbooks</h3>
+                <table border="1">
+                    <tr>
+                      <th>Author</th>
+                      <th>Title</th>
+                      <th>Link</th>
+                    </tr>
+                    <tr>
+                      <td>Richard S. Sutton and Andrew G. Barto</td>
+                      <td>Reinforcement Learning: An Introduction</td>
+                      <td><a href="https://mitpress.mit.edu/9780262039246/reinforcement-learning/">Reinforcement Learning: An Introduction</a> (<a href="http://incompleteideas.net/book/the-book.html">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>A. Lindholm, N. Wahlström, F. Lindsten, and Th. Schön</td>
+                      <td>Machine Learning: A First Course for Engineers and Scientists</td>
+                      <td><a href="https://www.cambridge.org/jp/academic/subjects/computer-science/pattern-recognition-and-machine-learning/machine-learning-first-course-engineers-and-scientists?format=HB">Machine Learning: A First Course for Engineers and Scientists</a> (<a href="http://smlbook.org">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Benjamin Recht and Stephen J. Wright</td>
+                      <td>Optimization for Modern Data Analysis</td>
+                      <td><a href="https://www.cambridge.org/core/books/optimization-for-data-analysis/C02C3708905D236AA354D1CE1739A6A2Optimization">Optimization for Modern Data Analysis</a> (<a href="https://people.eecs.berkeley.edu/~brecht/opt4ml_book/">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Wright & Ma</td>
+                      <td>High-Dimensional Data Analysis with Low-Dimensional Models</td>
+                      <td><a href="https://www.cambridge.org/jp/academic/subjects/computer-science/pattern-recognition-and-machine-learning/high-dimensional-data-analysis-low-dimensional-models-principles-computation-and-applications?format=HB">High-Dimensional Data Analysis with Low-Dimensional Models</a> (<a href="https://book-wright-ma.github.io/Book-WM-20210422.pdf">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>D. Barber</td>
+                      <td>Bayesian Reasoning and Machine Learning</td>
+                      <td><a href="https://www.cambridge.org/highereducation/books/bayesian-reasoning-and-machine-learning/37DAFA214EEE41064543384033D2ECF0#overview">Bayesian Reasoning and Machine Learning</a> (<a href="http://web4.cs.ucl.ac.uk/staff/D.Barber/pmwiki/pmwiki.php?n=Brml.HomePage">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Osvaldo Martin, Ravin Kumar, and Junpeng Lao</td>
+                      <td>Bayesian Modeling and Computation in Python</td>
+                      <td><a href="https://www.routledge.com/Bayesian-Modeling-and-Computation-in-Python/Martin-Kumar-Lao/p/book/9780367894368">Bayesian Modeling and Computation in Python</a> (<a href="https://bayesiancomputationbook.com/welcome.html">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>-</td>
+                      <td>Solution manual to Bayesian Essentials with R</td>
+                      <td><a href="https://arxiv.org/abs/1503.04662">Solution manual to Bayesian Essentials with R</a> (<a href="https://link.springer.com/book/10.1007/978-1-4614-8687-9">Web page</a>, <a href="https://cran.r-project.org/web/packages/bayess/index.html">R code package</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Sir MacKay</td>
+                      <td>Information theory, inference and learning algorithms</td>
+                      <td><a href="https://www.cambridge.org/jp/academic/subjects/computer-science/pattern-recognition-and-machine-learning/information-theory-inference-and-learning-algorithms?format=HB&isbn=9780521642989">Information theory, inference and learning algorithms</a> (<a href="https://inference.org.uk/itila/book.html">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>James, Witten, Hastie, and Tibshirani</td>
+                      <td>An Introduction to Statistical Learning with Applications in R</td>
+                      <td><a href="https://link.springer.com/book/10.1007/978-1-0716-1418-1">An Introduction to Statistical Learning with Applications in R</a> (<a href="https://statlearning.com">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Jure Leskovec, Anand Rajaraman, Jeff Ullman</td>
+                      <td>Mining of Massive Datasets</td>
+                      <td><a href="https://www.cambridge.org/core/books/mining-of-massive-datasets/C1B37BA2CBB8361B94FDD1C6F4E47922">Mining of Massive Datasets</a> (<a href="http://mmds.org">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Trevor Hastie, Robert Tibshirani, and Jerome Friedman</td>
+                      <td>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</td>
+                      <td><a href="https://hastie.su.domains/ElemStatLearn/">The Elements of Statistical Learning: Data Mining, Inference, and Prediction</a></td>
+                    </tr>
+                    <tr>
+                      <td>Prof. Roman Vershynin</td>
+                      <td>High-Dimensional Probability: An Introduction with Applications in Data Science</td>
+                      <td><a href="https://www.cambridge.org/core/books/highdimensional-probability/797C466DA29743D2C8213493BD2D2102">High-Dimensional Probability: An Introduction with Applications in Data Science</a> (<a href="https://math.uci.edu/~rvershyn/teaching/hdp/hdp.html">Web page</a>)</td>
+                    </tr>
+                    <tr>
+                      <td>Ian Goodfellow, Yoshua Bengio, Aaron Courville</td>
+                      <td>Deep Learning</td>
+                      <td><a href="https://mitpress.mit.edu/9780262035613/deep-learning/">Deep Learning</a> (<a href="https://deeplearningbook.org">Web page</a>)</td>
+                    </tr>
+                </table>
+                <h3>Collected Notes</h3>
+                <table border="1">
+                    <tr>
+                      <th>Category</th>
+                      <th>Title</th>
+                      <th>Link</th>
+                    </tr>
+                    <tr>
+                      <td rowspan="2">Economics</td>
+                      <td>Microeconomics</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/economics/BUSN+33801-92+All+Handwritten+Notes.pdf">Microeconomics</a></td>
+                    </tr>
+                    <tr>
+                      <td>Macroeconomics</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/economics/macroeconomics-notes.pdf">Macroeconomics</a></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3">Probability Theory</td>
+                      <td>Introduction to Probability Theory</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/probability_theory/intro_probability_theory.pdf">Introduction to Probability Theory</a></td>
+                    </tr>
+                    <tr>
+                      <td>Probability Theory and Statistics</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/probability_theory/introduction-to-probability-and-statistics.pdf">Probability Theory and Statistics</a></td>
+                    </tr>
+                    <tr>
+                      <td>Probability Theory</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/probability_theory/probability-theory.pdf">Probability Theory</a></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3">Statistical Inference</td>
+                      <td>Introduction to Statistical Reasoning</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/intro-statistical-reasoning.pdf">Introduction to Statistical Reasoning</a></td>
+                    </tr>
+                    <tr>
+                      <td>Statistical Inference</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/statistical-inference.pdf">Statistical Inference</a></td>
+                    </tr>
+                    <tr>
+                      <td>Linear Regression Model</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/linear-regression-model.pdf">Linear Regression Model</a></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3">Applied Statistical Science, Data Science, and Deep Learning</td>
+                      <td>Intro to Scientific Computing and Data Science</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/iscds.pdf">Intro to Scientific Computing and Data Science</a></td>
+                    </tr>
+                    <tr>
+                      <td>Statistical Machine Learning</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/inference/statistical_machine_learning.pdf">Statistical Machine Learning</a></td>
+                    </tr>
+                    <tr>
+                      <td>Deep Learning Notes</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/applied_statistics/deep-learning-notes.pdf">Deep Learning Notes</a></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="2">Mathematics</td>
+                      <td>Partial Differential Equation</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/mathematics/pde.pdf">Partial Differential Equation</a></td>
+                    </tr>
+                    <tr>
+                      <td>Real Analysis</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/mathematics/modern_analysis.pdf">Real Analysis</a></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="5">Money Management</td>
+                      <td>Securities Exchange Act (SEC), 1933</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/securities-exchange-act-of-1933.pdf">Securities Exchange Act (SEC), 1933</a></td>
+                    </tr>
+                    <tr>
+                      <td>Securities Exchange Act (SEC), 1934</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/securities-exchange-act-of-1934.pdf">Securities Exchange Act (SEC), 1934</a></td>
+                    </tr>
+                    <tr>
+                      <td>Security Analysis, 6E</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/security-analysis-benjamin-graham-6th-edition.pdf">Security Analysis, 6E</a></td>
+                    </tr>
+                    <tr>
+                      <td>Series 56 Guide</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/pass-perfect-study-guide-series-56.pdf">Series 56 Guide</a></td>
+                    </tr>
+                    <tr>
+                      <td>Asset Pricing</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/money_management/asset-pricing-j-cochrane.pdf">Asset Pricing</a></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="4">Computer Science</td>
+                      <td>Principles of Computer Science</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/principles_of_computer_science/principles+of+computer+science.pdf">Principles of Computer Science</a></td>
+                    </tr>
+                    <tr>
+                      <td>Programming Languages and Algorithms</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/programming+language+and+algorithms/programming+languages+and+algorithms.pdf">Programming Languages and Algorithms</a></td>
+                    </tr>
+                    <tr>
+                      <td>Management of Computer Networks</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/management+of+computer+networks/management+of+computer+networks.pdf">Management of Computer Networks</a></td>
+                    </tr>
+                    <tr>
+                      <td>Distributed Algorithms and Parallel Computing</td>
+                      <td><a href="https://wyn-associates.s3.amazonaws.com/public/notes/cs+dept/distributed+algorithms+and+parallel+computing/distributed-algorithms-and-parallel-computing.pdf">Distributed Algorithms and Parallel Computing</a></td>
+                    </tr>
+                  </table>
             </div>
           </div>
 
-
         </div>
+
         <!-- <footnote>
             <h4><b>Copyright © 2010-2023 Present Yiqiao Yin</b></h4>
         </footnote> -->
+
+        <div class="widget">
+            <button class="widget-btn" onclick="toggleWidget()">🧐🕵 Copilot</button>
+            <div id="widgetContent" class="widget-content">
+                <span class="close-widget" onclick="toggleWidget()">&times;</span>
+                <iframe src="https://eagle0504-y-yin-homepage.hf.space"></iframe>
+            </div>
+        </div>
 </body>
 </html>
